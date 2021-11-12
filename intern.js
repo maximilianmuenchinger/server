@@ -30,7 +30,7 @@ await deleteListingsByName(client);
         console.error(e);
     
     }finally{
-        await client.close();
+        //await client.close();
     }
 
 }
