@@ -9,16 +9,16 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js"
+    "start": "node intern.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maximilianmuenchinger/code"
+    "url": "git+https://github.com/maximilianmuenchinger/server"
   },
   "author": "maximilian muenchinger",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/maximilianmuenchinger/code/issus"
+    "url": "https://github.com/maximilianmuenchinger/server/issus"
   },
-  "homepage": "https://github.com/maximilianmuenchinger/code#readme"
+  "homepage": "https://github.com/maximilianmuenchinger/server#readme"
 }
