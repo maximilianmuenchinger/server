@@ -49,7 +49,7 @@ var Endabgabe;
           var dbo = db.db("Test2");
           let url = Url.parse(_request.url, true);
           var myobj = { name: url };
-          dbo.collection("Test2").deleteOne
+          dbo.collection("Test2").deleteOne()
             
           
         });
