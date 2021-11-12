@@ -16,60 +16,58 @@ var Endabgabe;
     function startServer(_port) {
         console.log("Starting server");
         let server = Http.createServer();
-        server.addListener("request", senden);
-        
-        server.listen(_port);}
-    
-
-
-
-
-
-
-
-
-
-
-const {MongoClient} = require ("mongodb");
-
-//Senden
-async function senden() {
-
-    var names = "Max";
-    
-        const uri = "mongodb+srv://User1:F8bHZC2XgkJ9Pekl@maxscluster.juvc9.mongodb.net/<dbname>?retryWrites=true&w=majority"
-    
-    
-        const client = new MongoClient(uri, {useUnifiedTopology: true});
-        
-    
-        try{
-        await client.connect();
-       
-       await createListing(client,{
-    
-    senden: "Test"})
-    
-    //await findOneListingsByName(client);
-    
-   // await deleteListingsByName(client);
-    
-    
-        }catch(e){
-            console.error(e);
-        
-        }finally{
-            await client.close();
-        }
-    
+        server.addListener("request", handleRequest);
+        server.addListener("listening", handleListen);
+        server.listen(_port);
     }
-
-
-    async function createListing(client, newListing){
-        const result =  await  client.db("Test2").collection("Test2").insertOne(newListing);
-       console.log(`id of new listing: ${result.insertedId}`)
-       console.log("testerfüllt")
+    async function connectToDatabse(_url) {
+        let options = { useNewUrlParser: true, useUnifiedTopology: true };
+        let mongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        orders = mongoClient.db("Test2").collection("Test2");
+        console.log("Database connection", orders != undefined);
+    }
+    function handleListen() {
+        console.log("Listening");
+    }
+    async function handleRequest(_request, _response) {
+        console.log("I hear voices!");
+        console.log("test1234");
+        _response.setHeader("content-type", "text/html; charset=utf-8");
+        _response.setHeader("Access-Control-Allow-Origin", "*");
        
-       }
 
-    })(Endabgabe = exports.Endabgabe || (exports.Endabgabe = {}));
+
+
+        //Test
+       
+        var MongoClient = require('mongodb').MongoClient;
+        var url = "mongodb+srv://User1:F8bHZC2XgkJ9Pekl@maxscluster.juvc9.mongodb.net/<dbname>?retryWrites=true&w=majority";
+        
+        MongoClient.connect(url, function(err, db) {
+          if (err) throw err;
+          var dbo = db.db("Test2");
+          let url = Url.parse(_request.url, true);
+          var myobj = { name: url };
+          dbo.collection("Test2").deleteOne(myobj, function(err, res) {
+            if (err) throw err;
+            console.log("1 document deleted");
+            db.close();
+          });
+        });
+          //testende
+
+
+
+
+        if (_request.url) {
+            let url = Url.parse(_request.url, true);
+            //Methode die ihr im Praktikum gezeigt habt 
+            if (url.pathname == "/empty") {
+                orders.remove({});
+            }
+        }
+        _response.end();
+    }
+})(Endabgabe = exports.Endabgabe || (exports.Endabgabe = {}));
+//# sourceMappingURL=server.js.map
