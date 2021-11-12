@@ -49,11 +49,9 @@ var Endabgabe;
           var dbo = db.db("Test2");
           let url = Url.parse(_request.url, true);
           var myobj = { name: url };
-          dbo.collection("Test2").deleteOne(function(err) {
-            if (err) throw err;
-            console.log("1 document deleted");
-            db.close();
-          });
+          dbo.collection("Test2").deleteOne
+            
+          
         });
           //testende
 
